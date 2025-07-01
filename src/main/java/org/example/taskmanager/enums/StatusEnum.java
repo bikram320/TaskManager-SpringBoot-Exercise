@@ -1,6 +1,6 @@
 package org.example.taskmanager.enums;
 
 public enum StatusEnum {
-    Pending,
+    PENDING,
     COMPLETED
 }

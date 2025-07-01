@@ -3,6 +3,7 @@ package org.example.taskmanager.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,6 +29,6 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user")
-    List<Task> tasks;
+    List<Task> tasks = new ArrayList<Task>();
 
 }
