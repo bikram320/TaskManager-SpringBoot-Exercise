@@ -31,8 +31,18 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>1.6.1</version>
         </dependency>
 
         <dependency>
@@ -40,10 +50,47 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-    </dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <groupId>org.springframework.boot</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>mysql-connector-j</artifactId>
+            <groupId>com.mysql</groupId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <artifactId>flyway-core</artifactId>
+            <groupId>org.flywaydb</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>flyway-mysql</artifactId>
+            <groupId>org.flywaydb</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>lombok</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <scope>annotationProcessor</scope>
+        </dependency>
 
+    </dependencies>
     <build>
         <plugins>
+            <!-- Flyway -->
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>11.7.2</version>
+                <configuration>
+                    <url>jdbc:mysql://localhost:3306/task_manager?createDatabaseIfNotExist=true</url>
+                    <user>root</user>
+                    <password>bikram123@</password>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
