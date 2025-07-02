@@ -1,4 +1,4 @@
-package org.example.taskmanager.dtos;
+package org.example.taskmanager.dtos.UserDtos;
 
 import lombok.Data;
 

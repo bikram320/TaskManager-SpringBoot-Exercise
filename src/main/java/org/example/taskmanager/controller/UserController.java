@@ -1,9 +1,10 @@
 package org.example.taskmanager.controller;
 
 import lombok.AllArgsConstructor;
-import org.example.taskmanager.dtos.CreateUserRequest;
-import org.example.taskmanager.dtos.UpdateUserRequest;
-import org.example.taskmanager.dtos.UserDto;
+import org.example.taskmanager.dtos.UserDtos.CreateUserRequest;
+import org.example.taskmanager.dtos.UserDtos.UpdatePasswordRequest;
+import org.example.taskmanager.dtos.UserDtos.UpdateUserRequest;
+import org.example.taskmanager.dtos.UserDtos.UserDto;
 import org.example.taskmanager.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,5 +37,11 @@ public class UserController {
             @PathVariable long id ,
             @RequestBody UpdateUserRequest request){
         return userService.updateUser(request,id);
+    }
+
+    @PostMapping("/change-password/{id}")
+    public ResponseEntity<Void> changePassword(
+            @PathVariable long id , @RequestBody UpdatePasswordRequest request) {
+        return userService.UpdatePassword(id, request);
     }
 }
