@@ -1,4 +1,4 @@
-package org.example.taskmanager.enums;
+package org.example.taskmanager.entities;
 
 public enum StatusEnum {
     PENDING,

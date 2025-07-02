@@ -42,6 +42,11 @@ public class UserController {
     @PostMapping("/change-password/{id}")
     public ResponseEntity<Void> changePassword(
             @PathVariable long id , @RequestBody UpdatePasswordRequest request) {
-        return userService.UpdatePassword(id, request);
+        return userService.updatePassword(id, request);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 }

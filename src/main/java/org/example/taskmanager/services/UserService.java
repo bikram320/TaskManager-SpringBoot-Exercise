@@ -50,7 +50,7 @@ public class UserService {
         return ResponseEntity.ok(userDto);
     }
 
-    public ResponseEntity<Void> UpdatePassword(long id , UpdatePasswordRequest request) {
+    public ResponseEntity<Void> updatePassword(long id , UpdatePasswordRequest request) {
         var user = userRepository.findById(id).orElse(null);
         if (user == null) {
             return ResponseEntity.notFound().build();
@@ -61,5 +61,13 @@ public class UserService {
         user.setPassword(request.getNewPassword());
         userRepository.save(user);
         return ResponseEntity.noContent().build();
+    }
+    public void deleteUser(Long id) {
+        var user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            ResponseEntity.notFound().build();
+            return;
+        }
+        userRepository.delete(user);
     }
 }

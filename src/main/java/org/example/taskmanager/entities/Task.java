@@ -1,7 +1,6 @@
 package org.example.taskmanager.entities;
 
 import jakarta.persistence.*;
-import org.example.taskmanager.enums.StatusEnum;
 
 @Entity
 @Table(name = "task")
