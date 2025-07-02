@@ -2,6 +2,7 @@ package org.example.taskmanager.services;
 
 import lombok.AllArgsConstructor;
 import org.example.taskmanager.dtos.CreateUserRequest;
+import org.example.taskmanager.dtos.UpdateUserRequest;
 import org.example.taskmanager.dtos.UserDto;
 import org.example.taskmanager.mapper.UserMapper;
 import org.example.taskmanager.repositories.UserRepository;
@@ -35,6 +36,16 @@ public class UserService {
         userRepository.save(newUser);
 
         UserDto userDto = userMapper.toUserDto(newUser);
+        return ResponseEntity.ok(userDto);
+    }
+    public ResponseEntity<UserDto> updateUser(UpdateUserRequest request, Long id) {
+        var user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        userMapper.toUpdateUser(request, user);
+        userRepository.save(user);
+        UserDto userDto = userMapper.toUserDto(user);
         return ResponseEntity.ok(userDto);
     }
 }

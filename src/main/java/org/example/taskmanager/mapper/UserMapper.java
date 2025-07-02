@@ -1,10 +1,12 @@
 package org.example.taskmanager.mapper;
 
 import org.example.taskmanager.dtos.CreateUserRequest;
+import org.example.taskmanager.dtos.UpdateUserRequest;
 import org.example.taskmanager.dtos.UserDto;
 import org.example.taskmanager.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
@@ -14,4 +16,6 @@ public interface UserMapper {
     @Mapping(source = "email", target = "email")
     @Mapping(source = "password", target = "password")
     User toUser(CreateUserRequest request);
+
+    void toUpdateUser(UpdateUserRequest request , @MappingTarget User user);
 }
