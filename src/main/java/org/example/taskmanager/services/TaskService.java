@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -38,13 +39,23 @@ public class TaskService {
 
         return taskMapper.toTaskDto(newTask);
     }
-    public ResponseEntity<Void> updateTaskStatus(long taskId, ChangeTaskStatusRequest newStatus) {
+    public ResponseEntity<?> updateTaskStatus(long taskId, ChangeTaskStatusRequest newStatus) {
         var task = taskRepository.findById(taskId).orElse(null);
         if (task == null) {
             return ResponseEntity.notFound().build();
         }
+        //validating if the previous status didn't match
         if(!task.getStatus().equals(newStatus.getPreviousStatus())){
-            return ResponseEntity.badRequest().build();
+            return  ResponseEntity.badRequest().body(
+                    Map.of("status","Previous Status did not match ,try again(PENDING,COMPLETED)")
+            );
+        }
+
+        //validating if the status is same as old
+        if(newStatus.getPreviousStatus().equals(newStatus.getNewStatus())){
+            return  ResponseEntity.badRequest().body(
+                     Map.of("status","New Status is same as Old one ,try again(PENDING,COMPLETED)")
+            );
         }
         task.setStatus(newStatus.getNewStatus());
         taskRepository.save(task);

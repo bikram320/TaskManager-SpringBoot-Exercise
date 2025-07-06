@@ -1,5 +1,6 @@
 package org.example.taskmanager.controller;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.example.taskmanager.dtos.TaskDtos.ChangeTaskStatusRequest;
 import org.example.taskmanager.dtos.TaskDtos.CreateTaskRequest;
@@ -21,6 +22,7 @@ public class TaskController {
     public List<TaskDto> getAllTasks() {
         return taskService.getAllTasks();
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<List<TaskDto>> getTasksByUserId(@PathVariable long id) {
         List<TaskDto> taskDtos = taskService.getTasksByUserId(id);
@@ -30,13 +32,13 @@ public class TaskController {
         return ResponseEntity.ok(taskDtos);
     }
     @PostMapping
-    public ResponseEntity<TaskDto> createTask(@RequestBody CreateTaskRequest request) {
+    public ResponseEntity<TaskDto> createTask( @Valid @RequestBody CreateTaskRequest request) {
         var taskDto =taskService.createTask(request);
         return new ResponseEntity<>(taskDto, HttpStatus.CREATED);
     }
     @PostMapping("/{id}/change-status")
-    public ResponseEntity<Void> changeTaskStatus(
-            @PathVariable long id, @RequestBody ChangeTaskStatusRequest newStatus) {
+    public ResponseEntity<?> changeTaskStatus(
+            @PathVariable long id, @Valid @RequestBody ChangeTaskStatusRequest newStatus) {
         return taskService.updateTaskStatus(id,newStatus);
     }
 }

@@ -1,4 +1,4 @@
-package org.example.taskmanager.exceptions;
+package org.example.taskmanager.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
