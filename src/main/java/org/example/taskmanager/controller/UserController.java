@@ -2,7 +2,7 @@ package org.example.taskmanager.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.example.taskmanager.dtos.UserDtos.CreateUserRequest;
+import org.example.taskmanager.dtos.UserDtos.RegisterUserRequest;
 import org.example.taskmanager.dtos.UserDtos.UpdatePasswordRequest;
 import org.example.taskmanager.dtos.UserDtos.UpdateUserRequest;
 import org.example.taskmanager.dtos.UserDtos.UserDto;
@@ -29,12 +29,12 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> registerUser(@Valid @RequestBody CreateUserRequest request) {
-        return userService.createUser(request);
+    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterUserRequest request) {
+        return userService.registerUser(request);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDto> updateUserRequest(
+    public ResponseEntity<?> updateUserRequest(
             @PathVariable long id ,
             @Valid
             @RequestBody UpdateUserRequest request){
@@ -42,8 +42,8 @@ public class UserController {
     }
 
     @PostMapping("/change-password/{id}")
-    public ResponseEntity<Void> changePassword(
-            @PathVariable long id , @RequestBody UpdatePasswordRequest request) {
+    public ResponseEntity<?> changePassword(
+            @PathVariable long id , @Valid @RequestBody UpdatePasswordRequest request) {
         return userService.updatePassword(id, request);
     }
     @DeleteMapping("/{id}")
