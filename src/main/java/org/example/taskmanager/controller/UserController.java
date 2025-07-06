@@ -1,5 +1,6 @@
 package org.example.taskmanager.controller;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.example.taskmanager.dtos.UserDtos.CreateUserRequest;
 import org.example.taskmanager.dtos.UserDtos.UpdatePasswordRequest;
@@ -28,13 +29,14 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody CreateUserRequest request) {
+    public ResponseEntity<UserDto> registerUser(@Valid @RequestBody CreateUserRequest request) {
         return userService.createUser(request);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<UserDto> updateUserRequest(
             @PathVariable long id ,
+            @Valid
             @RequestBody UpdateUserRequest request){
         return userService.updateUser(request,id);
     }

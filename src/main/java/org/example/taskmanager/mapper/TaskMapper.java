@@ -11,17 +11,10 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface TaskMapper {
 
-    @Mapping(source = "id",target = "id")
-    @Mapping(source = "name",target = "name")
-    @Mapping(source ="description",target = "description")
-    @Mapping(source = "status",target = "status")
-    @Mapping(source = "user.id",target = "userId")
+
     TaskDto toTaskDto(Task task);
 
-    @Mapping(source = "name", target = "name")
-    @Mapping(source = "description", target = "description")
-    @Mapping(source = "status", target = "status")
-    @Mapping(source = "userId" , target = "user.id")
+
     Task toTask(CreateTaskRequest request);
 
 }

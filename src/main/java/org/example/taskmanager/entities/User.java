@@ -8,8 +8,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
-@Setter
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
@@ -31,4 +29,35 @@ public class User {
     @OneToMany(mappedBy = "user")
     List<Task> tasks = new ArrayList<Task>();
 
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
