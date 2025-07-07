@@ -10,10 +10,9 @@ import org.mapstruct.Mapping;
 public interface TaskMapper {
 
 
-    @Mapping(source = "user.id", target = "userId")
+
     TaskDto toTaskDto(Task task);
 
-    @Mapping(source = "userId", target = "user.id")
     Task toTask(CreateTaskRequest request);
 
 }
