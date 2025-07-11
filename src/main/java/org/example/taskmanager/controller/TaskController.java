@@ -19,17 +19,15 @@ public class TaskController {
     private TaskService taskService;
 
     @GetMapping
-    public List<TaskDto> getAllTasks() {
-        return taskService.getAllTasks();
+    public ResponseEntity<List<TaskDto>> getAllTasks() {
+        var tasks = taskService.getAllTasks();
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<TaskDto>> getTasksByUserId(@PathVariable long id) {
+    public ResponseEntity<List<TaskDto>> getTasksByUserId(@PathVariable long id) throws Exception {
         List<TaskDto> taskDtos = taskService.getTasksByUserId(id);
-        if (taskDtos.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(taskDtos);
+        return new ResponseEntity<>(taskDtos, HttpStatus.OK);
     }
     @PostMapping
     public ResponseEntity<TaskDto> createTask( @Valid @RequestBody CreateTaskRequest request) {
@@ -38,7 +36,8 @@ public class TaskController {
     }
     @PostMapping("/{id}/change-status")
     public ResponseEntity<?> changeTaskStatus(
-            @PathVariable long id, @Valid @RequestBody ChangeTaskStatusRequest newStatus) {
-        return taskService.updateTaskStatus(id,newStatus);
+            @PathVariable long id, @Valid @RequestBody ChangeTaskStatusRequest newStatus) throws Exception {
+         taskService.updateTaskStatus(id,newStatus);
+         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
