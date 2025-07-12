@@ -10,11 +10,9 @@ import org.example.taskmanager.exceptions.DuplicateDataException;
 import org.example.taskmanager.exceptions.ResourceNotFoundException;
 import org.example.taskmanager.mapper.UserMapper;
 import org.example.taskmanager.repositories.UserRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 @AllArgsConstructor

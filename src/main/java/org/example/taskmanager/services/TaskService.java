@@ -1,6 +1,5 @@
 package org.example.taskmanager.services;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.example.taskmanager.dtos.TaskDtos.ChangeTaskStatusRequest;
 import org.example.taskmanager.dtos.TaskDtos.CreateTaskRequest;
@@ -10,12 +9,10 @@ import org.example.taskmanager.exceptions.DuplicateDataException;
 import org.example.taskmanager.exceptions.ResourceNotFoundException;
 import org.example.taskmanager.mapper.TaskMapper;
 import org.example.taskmanager.repositories.TaskRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @AllArgsConstructor
