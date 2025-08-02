@@ -10,15 +10,35 @@ import org.example.taskmanager.exceptions.DuplicateDataException;
 import org.example.taskmanager.exceptions.ResourceNotFoundException;
 import org.example.taskmanager.mapper.UserMapper;
 import org.example.taskmanager.repositories.UserRepository;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
+
     private UserRepository userRepository;
     private UserMapper userMapper;
+    private PasswordEncoder passwordEncoder;
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        var user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(email));
+        return new User(
+                user.getEmail(),
+                user.getPassword(),
+                Collections.emptyList()
+        );
+
+    }
 
     public List<UserDto> getAllUsers() {
         return userRepository
@@ -39,6 +59,7 @@ public class UserService {
             throw new DuplicateDataException("Email address already in use");
         }
         var newUser = userMapper.toUser(request);
+        newUser.setPassword(passwordEncoder.encode(request.getPassword()));
         userRepository.save(newUser);
 
         return userMapper.toUserDto(newUser);

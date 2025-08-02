@@ -10,6 +10,10 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
+
+    @Mapping(source = "id",target = "id")
+    @Mapping(source = "name" , target = "name")
+    @Mapping(source = "email" , target = "email")
     UserDto toUserDto(User user);
 
 
