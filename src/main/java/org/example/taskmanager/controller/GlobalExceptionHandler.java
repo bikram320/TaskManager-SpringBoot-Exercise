@@ -14,7 +14,7 @@ import java.util.HashMap;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidationError(MethodArgumentNotValidException exception) {
         var errors = new HashMap<String, String>();
         exception.getBindingResult().getAllErrors().forEach((error) -> {
