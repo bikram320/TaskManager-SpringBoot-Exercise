@@ -24,10 +24,31 @@ A simple Task Manager REST API built with **Spring Boot** and **MySQL**. It prov
 
 - Java 17+
 - Spring Boot
+- Spring Secuirty
 - Spring Data JPA (Hibernate)
 - MySQL
 - Lombok
 - MapStruct
+
+---
+
+## 🔐 Security (JWT)
+
+This practice project includes basic stateless authentication using **JWT (JSON Web Tokens)** with the following flow:
+
+- `POST /auth/login`:  
+  Authenticates user credentials and returns an **Access Token** in the response body and a **Refresh Token** in a secure, HTTP-only cookie.
+
+- `GET /auth/refresh`:  
+  Accepts the Refresh Token (from cookie) and issues a new Access Token if valid.
+
+- `GET /auth/CurrentUser`:  
+  Returns the authenticated user’s data based on the Access Token provided in the `Authorization` header.
+
+**Token Details:**
+- **Access Token:** Short-lived (e.g., 5 minutes), included in `Authorization: Bearer <token>` header.
+- **Refresh Token:** Long-lived (e.g., 1 hour), stored in `HttpOnly` cookie for security.
+- **BCrypt Password Encoding** used for secure password storage.
 
 ---
 
@@ -54,68 +75,6 @@ A simple Task Manager REST API built with **Spring Boot** and **MySQL**. It prov
 | GET    | `/tasks/user/{userId}`            | Get tasks by user ID            |
 | POST   | `/tasks`                          | Create a new task               |
 | POST   | `/tasks/{id}/change-status`       | Change task status              |
-
----
-
-## ⚙️ Setup & Run
-
-1. **Clone the Repository**
-
-```bash
-git clone https://github.com/bikram320/TaskManager-SpringBoot-Exercise.git
-cd TaskManager-SpringBoot-Exercise
-```
-
-2. **Configure MySQL**
-
-Create a database named `task_manager` and update your `application.properties`:
-
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/task_manager
-spring.datasource.username=your_mysql_username
-spring.datasource.password=your_mysql_password
-spring.jpa.hibernate.ddl-auto=update
-```
-
-3. **Run the Project**
-
-```bash
-./mvnw spring-boot:run
-```
-
----
-
-## 📥 Sample JSON Requests
-
-### ➕ Create User
-
-```json
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "password": "123456"
-}
-```
-
-### ➕ Create Task
-
-```json
-{
-  "name": "Create README",
-  "description": "Write project documentation",
-  "status": "PENDING",
-  "userId": 1
-}
-```
-
-### 🔁 Change Task Status
-
-```json
-{
-  "previousStatus": "PENDING",
-  "newStatus": "COMPLETED"
-}
-```
 
 ---
 
